@@ -28,9 +28,21 @@ public final class IncomingPlayerHandler {
     String player = topic.substring(topicPrefix.length());
     if (player.isEmpty() || player.contains("/") || player.equals(localUsername)) return;
     // TODO: complete the snapshot processing below.
+    
     // TODO: decode UTF-8 JSON using PlayerCodec.
-    // TODO: require the topic suffix to match the decoded player.
-    // TODO: deliver valid remote state to receiver exactly once.
-    // TODO: handle malformed JSON without terminating the MQTT callback.
+    try {
+      String json = new String(payload, StandardCharsets.UTF_8);
+      PlayerState state = PlayerCodec.decode(json);
+
+      if (!player.equals(state.player())) return;
+
+      receiver.accept(
+        state
+      );
+    } catch (IllegalArgumentException e) {
+      // Ignore malformed JSON or invalid player state.
+      return;
+    }
+    
   }
 }
