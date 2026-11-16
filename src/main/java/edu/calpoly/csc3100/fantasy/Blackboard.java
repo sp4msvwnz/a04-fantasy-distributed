@@ -32,6 +32,9 @@ public final class Blackboard extends PropertyChangeSupport {
     store(state);
     publisher.publish(state);
   }
+  private static boolean supportedEquipment(String item) {
+    return "sword".equals(item) || "shield".equals(item) || "shoes".equals(item);
+  }
   public void moveLocal(String username, int dx, int dy) {
     // TODO: move only the local player one cardinal tile within the board
     if (localUsername == null || !localUsername.equals(username)) return;
@@ -64,9 +67,31 @@ public final class Blackboard extends PropertyChangeSupport {
   public void equipLocal(String username, String item) {
     // TODO: append supported equipment to the local snapshot if absent.
     // Store the changed snapshot and publish it once.
+    if (!username.equals(localUsername)) return;
+    if (!supportedEquipment(item)) return;
+    PlayerState current = players.get(username);
+    if (current == null || current.equipment().contains(item)) return;
+
+    List<String> equipment = new ArrayList<>(current.equipment());
+    equipment.add(item);
+
+    PlayerState updated = new PlayerState(current.player(), current.type(), current.x(), current.y(), equipment);
+    store(updated);
+    publisher.publish(updated);
   }
   public void unequipLocal(String username, String item) {
     // TODO: remove the requested item from the local snapshot if present.
     // Preserve the order of the other items, store the snapshot, and publish it once.
+    if (!username.equals(localUsername)) return;
+    if (!supportedEquipment(item)) return;
+
+    PlayerState current = players.get(username);
+    if (current == null || !current.equipment().contains(item)) return;
+    List<String> equipment = new ArrayList<>(current.equipment());
+    equipment.remove(item);
+
+    PlayerState updated = new PlayerState(current.player(), current.type(), current.x(), current.y(), equipment);
+    store(updated);
+    publisher.publish(updated);
   }
 }
