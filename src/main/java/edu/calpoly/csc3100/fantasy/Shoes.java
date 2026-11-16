@@ -10,8 +10,11 @@ public final class Shoes implements Character {
   public Shoes(Character wrapped) { this.wrapped = java.util.Objects.requireNonNull(wrapped); }
   @Override public void draw(java.awt.Graphics2D g, int x, int y) {
     wrapped.draw(g, x, y);
-    // TODO: draw a visible pair of shoes below the body, within the tile.
-  }
+    g.setColor(java.awt.Color.RED);
+    g.fillRect(x + 11, y + 34, 7 ,4);
+
+    g.fillRect(x + 22, y + 34, 7, 4);
+    }
 
   public int attack() { return wrapped.attack(); }
   public int defense() { return wrapped.defense(); }
