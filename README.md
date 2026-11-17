@@ -1,6 +1,27 @@
 # CSC 3100 — A04 Distributed Fantasy Adventure
 
-> **Instructor starter template — intentionally incomplete.** Students use TDD to make the provided JUnit acceptance tests pass. The application is a small distributed visualization, **not a game engine**.
+![GitHub Actions Build Status](https://github.com/sp4msvwnz/a04-fantasy-distributed/actions/workflows/ci.yml/badge.svg)
+
+Distributed Fantasy Adventure is a Java Application that demonstrates 
+communitcation between two graphical clients using MQTT. The project
+implements the Factory, Decorator, and Observer design patterns to manage
+character creation, equipment, and real-time player-state updates.
+
+The application also suppoorts multiple players within a shared team session, character movement across a grid, and equipment customization using Sword, Shield, and Shoes.
+
+Therefore, the application is implemented using Java21, Maven, Java Swing, MQTT, and Docker with noVNC.
+
+
+## Demonstration Screenshot
+
+The following screenshot shows two instances of the Distributed Fantasy Adventure application:
+
+- **Alice:** Running locally on macOS using VS Code.
+- **Bob:** Running inside Docker through noVNC.
+
+Both clients use the same TEAM identifier and display the two named players.
+
+![Alice and Bob Running on Both Clients](Alice_And_Bob.png)
 
 ## Learning goals
 
