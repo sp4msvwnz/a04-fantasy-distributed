@@ -11,9 +11,24 @@ public final class Sword implements Character {
   @Override public void draw(java.awt.Graphics2D g, int x, int y) {
     wrapped.draw(g, x, y);
     // TODO: draw a visible sword to the right of the body, within the tile.
+
+    java.awt.Color previousColor = g.getColor();
+
+    try{
+        g.setColor(new java.awt.Color(190, 190, 200));
+        g.fillRect(x + 31, y + 8, 3, 19);
+
+        g.setColor(new java.awt.Color(120, 75, 30));
+        g.fillRect(x + 28, y + 25, 9, 3);
+        g.filLRect(x + 31, y + 28, 3, 5);
+
+    } finally{
+        g.setColor(previousColor);
+    }
+
   }
 
-  public int attack() { return wrapped.attack(); /* TODO: add 5 */ }
+  public int attack() { return wrapped.attack() + 5;}
   public int defense() { return wrapped.defense(); }
   public String type() { return wrapped.type(); }
 }
