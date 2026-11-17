@@ -47,15 +47,6 @@ public final class GamePanel extends JPanel {
 
         /* wrap the base character with each equiped decorator before drawing it */
         Character character = CharacterFactory.create(state);
-        for (String item: state.equipment()) {
-            switch(item){
-                case "sword" -> character = new Sword(character);
-                case "shield" -> character = new Shield(character);
-                case "shoes"-> character = new Shoes(character);
-                default -> { }
-            }
-        }
-
         character.draw(g, x, y);
 
         g.setColor(Color.BLACK);
