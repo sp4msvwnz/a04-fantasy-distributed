@@ -20,7 +20,7 @@ public final class Sword implements Character {
 
         g.setColor(new java.awt.Color(120, 75, 30));
         g.fillRect(x + 28, y + 25, 9, 3);
-        g.filLRect(x + 31, y + 28, 3, 5);
+        g.fillRect(x + 31, y + 28, 3, 5);
 
     } finally{
         g.setColor(previousColor);
